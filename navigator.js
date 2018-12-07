@@ -1,5 +1,5 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import { Easing } from "react-native";
+import { Animated, Easing } from "react-native";
 
 import { HomeScreen } from "./src/pages/HomeScreen";
 import { BulbsList } from "./src/pages/BulbsList";
@@ -8,9 +8,9 @@ import { BulbDetails } from "./src/pages/BulbDetails";
 const transitionConfig = () => {
   return {
     transitionSpec: {
-      duration: 250,
-      easing: Easing.elastic(),
-      // timing: Animated.timing,
+      duration: 300,
+      easing: Easing.out(Easing.poly(4)),
+      timing: Animated.timing,
       useNativeDriver: true
     },
     screenInterpolator: sceneProps => {
