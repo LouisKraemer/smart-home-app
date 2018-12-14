@@ -2,25 +2,35 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { StatusBar } from "react-native";
 import { BulbItem } from "../../components";
+import { connect } from "react-redux";
 
-export class BulbsList extends Component {
+class BulbsListComponent extends Component {
   render() {
     return (
       <Container>
-        <BulbItem
-          bulb={{
-            id: "xxxxxxx",
-            name: "Chambre",
-            power: "off"
-          }}
-          navigate={() =>
-            this.props.navigation.navigate("BulbDetails", { id: "xxxxxxx" })
-          }
-        />
+        {this.props.bulbs.map(bulb => (
+          <BulbItem
+            key={bulb.id}
+            bulb={bulb}
+            navigate={() =>
+              this.props.navigation.navigate("BulbDetails", { id: bulb.id })
+            }
+          />
+        ))}
       </Container>
     );
   }
 }
+
+const mapStateToProps = ({ yeelight }) => ({
+  bulbs: yeelight.bulbs.map(({ id, power, name }) => ({
+    id,
+    power,
+    name
+  }))
+});
+
+export const BulbsList = connect(mapStateToProps)(BulbsListComponent);
 
 const Container = styled.View`
   flex: 1;

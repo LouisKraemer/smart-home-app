@@ -18,9 +18,11 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <AppContainer />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <AppContainer />
+        </ThemeProvider>
+      </Provider>
     );
   }
 }
