@@ -3,9 +3,9 @@ import { SET_POWER } from "../constants/yeelight";
 const INITIAL_STATE = {
   bulbs: [
     {
-      id: "fzeoijspf",
+      id: "1234",
       power: "on",
-      name: "Le Chef"
+      name: "BLABLABLA"
     }
   ]
 };

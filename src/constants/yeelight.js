@@ -1,1 +1,1 @@
-export const SET_POWER = "SET_POWER";
+export const SET_POWER = "yeelight::set::power";
