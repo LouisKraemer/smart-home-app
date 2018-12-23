@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { connect } from "react-redux";
-import { yeelightActions } from "../../actions";
+import { setPower } from "../../services/yeelight";
+// import { connect } from "react-redux";
+// import { yeelightActions } from "../../actions/yeelight";
 
 const bulbLogos = {
   on: require(`../../assets/bulb_on.png`),
@@ -17,7 +18,7 @@ export class BulbItemComponent extends Component {
         </LabelContainer>
         <LogoContainer
           onPress={() =>
-            this.props.setPower(
+            setPower(
               this.props.bulb.id,
               this.props.bulb.power === "on" ? "off" : "on"
             )
@@ -33,16 +34,18 @@ export class BulbItemComponent extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  setPower: (id, power) => {
-    dispatch(yeelightActions.setPower(id, power));
-  }
-});
+// const mapDispatchToProps = dispatch => ({
+//   setPower: (id, power) => {
+//     dispatch(yeelightActions.setPower(id, power));
+//   }
+// });
 
-export const BulbItem = connect(
-  null,
-  mapDispatchToProps
-)(BulbItemComponent);
+// export const BulbItem = connect(
+//   null,
+//   mapDispatchToProps
+// )(BulbItemComponent);
+
+export const BulbItem = BulbItemComponent;
 
 const Container = styled.View`
   display: flex;
