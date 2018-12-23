@@ -34,6 +34,6 @@ const IconContainer = styled.TouchableOpacity`
 
 const Icon = styled.Image`
   flex: 1;
-  height: undefined;
-  width: undefined;
+  height: auto;
+  width: auto;
 `;

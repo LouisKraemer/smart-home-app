@@ -22,8 +22,8 @@ class BulbsListComponent extends Component {
   }
 }
 
-const mapStateToProps = ({ yeelight }) => ({
-  bulbs: yeelight.bulbs.map(({ id, power, name }) => ({
+const mapStateToProps = ({ yeelightReducer: { bulbs } }) => ({
+  bulbs: bulbs.map(({ id, power, name }) => ({
     id,
     power,
     name
