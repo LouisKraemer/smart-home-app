@@ -1,8 +1,9 @@
 import { send } from "./websocket";
 import { compose } from "ramda";
 
-const setPower = (id, power) =>
-  formatAndSend("yeelight::set::power", { id, power });
+import { SET_POWER } from "../constants/yeelight";
+
+const setPower = (id, power) => formatAndSend(SET_POWER, { id, power });
 
 const formatAndSend = compose(
   send,
