@@ -7,7 +7,7 @@ export class HomeScreen extends Component {
   render() {
     return (
       <StyledContainer>
-        <StatusBar barStyle="light-content" />
+        <StatusBar backgroundColor="transparent" translucent />
         <IconContainer
           onPress={() => this.props.navigation.navigate("BulbsList")}
         >

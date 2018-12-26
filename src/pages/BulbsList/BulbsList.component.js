@@ -34,7 +34,7 @@ export const BulbsList = connect(mapStateToProps)(BulbsListComponent);
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${({ theme }) => theme.colors.darkBackground};
+  background-color: ${({ theme }) => theme.colors.darkIndigo};
   display: flex;
   padding-top: ${StatusBar.currentHeight};
 `;

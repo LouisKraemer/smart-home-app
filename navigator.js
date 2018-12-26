@@ -8,7 +8,7 @@ import { BulbDetails } from "./src/pages/BulbDetails";
 const transitionConfig = () => {
   return {
     transitionSpec: {
-      duration: 300,
+      duration: 400,
       easing: Easing.out(Easing.poly(4)),
       timing: Animated.timing,
       useNativeDriver: true
@@ -25,7 +25,12 @@ const transitionConfig = () => {
         outputRange: [width, 0, -width]
       });
 
-      return { translateX };
+      const opacity = position.interpolate({
+        inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
+        outputRange: [0, 1, 0]
+      });
+
+      return { opacity, translateX };
     }
   };
 };
@@ -39,7 +44,8 @@ const AppNavigator = createStackNavigator(
   {
     initialRouteName: "Home",
     headerMode: "none",
-    transitionConfig
+    transitionConfig,
+    cardStyle: { backgroundColor: "#000000" }
   }
 );
 

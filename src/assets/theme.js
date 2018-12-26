@@ -2,7 +2,8 @@ const colors = {
   primary: "#ffffff",
   darkBackground: "#263238",
   lightBackground: "#37474F",
-  contrast: "#ffffff"
+  contrast: "#ffffff",
+  darkIndigo: "#283593"
 };
 
 const padding = {
