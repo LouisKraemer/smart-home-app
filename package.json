@@ -9,7 +9,6 @@
     "run:ios": "react-native run-ios"
   },
   "dependencies": {
-    "lottie-react-native": "^2.5.11",
     "ramda": "^0.26.1",
     "react": "16.6.1",
     "react-native": "0.57.7",
