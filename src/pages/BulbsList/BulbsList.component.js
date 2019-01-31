@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { StatusBar } from "react-native";
 import { BulbItem } from "../../components";
 import { connect } from "react-redux";
+import { Container } from "../../components";
 
 class BulbsListComponent extends Component {
   render() {
     return (
-      <Container>
+      <Container background="darkIndigo">
         {this.props.bulbs.map(bulb => (
           <BulbItem
             key={bulb.id}
@@ -23,18 +23,7 @@ class BulbsListComponent extends Component {
 }
 
 const mapStateToProps = ({ yeelightReducer: { bulbs } }) => ({
-  bulbs: bulbs.map(({ id, power, name }) => ({
-    id,
-    power,
-    name
-  }))
+  bulbs
 });
 
 export const BulbsList = connect(mapStateToProps)(BulbsListComponent);
-
-const Container = styled.View`
-  flex: 1;
-  background-color: ${({ theme }) => theme.colors.darkIndigo};
-  display: flex;
-  padding-top: ${StatusBar.currentHeight};
-`;

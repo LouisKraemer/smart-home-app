@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { StatusBar } from "react-native";
 import styled from "styled-components";
 import { Container } from "../../components";
+import { send } from "../../services/websocket";
 
 export class HomeScreen extends Component {
   render() {

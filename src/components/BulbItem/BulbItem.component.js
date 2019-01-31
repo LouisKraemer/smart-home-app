@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+
 import { setPower } from "../../services/yeelight";
-// import { connect } from "react-redux";
-// import { yeelightActions } from "../../actions/yeelight";
 
 const bulbLogos = {
   on: require(`../../assets/bulb_on.png`),
@@ -13,37 +12,22 @@ export class BulbItemComponent extends Component {
   render() {
     return (
       <Container>
-        <LabelContainer onPress={this.props.navigate}>
+        {/* <LabelContainer onPress={this.props.navigate}> */}
+        <LabelContainer>
           <Label>{this.props.bulb.name}</Label>
         </LabelContainer>
         <LogoContainer
-          onPress={() =>
-            setPower(
-              this.props.bulb.id,
-              this.props.bulb.power === "on" ? "off" : "on"
-            )
-          }
+          onPress={() => setPower(this.props.bulb.id, !this.props.bulb.on)}
         >
           <Logo
             resizeMode="contain"
-            source={bulbLogos[this.props.bulb.power]}
+            source={bulbLogos[this.props.bulb.on ? "on" : "off"]}
           />
         </LogoContainer>
       </Container>
     );
   }
 }
-
-// const mapDispatchToProps = dispatch => ({
-//   setPower: (id, power) => {
-//     dispatch(yeelightActions.setPower(id, power));
-//   }
-// });
-
-// export const BulbItem = connect(
-//   null,
-//   mapDispatchToProps
-// )(BulbItemComponent);
 
 export const BulbItem = BulbItemComponent;
 

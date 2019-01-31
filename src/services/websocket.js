@@ -1,14 +1,15 @@
 import { eventChannel } from "redux-saga";
 import { take, call, put } from "redux-saga/effects";
 import { isNil } from "ramda";
+import { getAll } from "./yeelight";
 
-const ws = new WebSocket("ws://192.168.1.20:6767/");
+const ws = new WebSocket("ws://192.168.0.15:1880");
 
 const createSocketChannel = socket => {
   return eventChannel(emit => {
-    // socket.onopen = () => {
-    //   console.log("Channel open");
-    // };
+    socket.onopen = () => {
+      getAll();
+    };
 
     socket.onmessage = e => {
       try {
@@ -22,15 +23,15 @@ const createSocketChannel = socket => {
       }
     };
 
-    // socket.onerror = e => {
-    //   // an error occurred
-    //   console.log(e.message);
-    // };
+    socket.onerror = e => {
+      // an error occurred
+      console.log(e.message);
+    };
 
-    // socket.onclose = e => {
-    //   // connection closed
-    //   console.log(e.code, e.reason);
-    // };
+    socket.onclose = e => {
+      // connection closed
+      console.log(e.code, e.reason);
+    };
     return () => {
       socket.close();
     };

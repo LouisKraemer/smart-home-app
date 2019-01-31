@@ -1,30 +1,31 @@
-import { SET_POWER } from "../constants/yeelight";
+import { GET, GET_ALL } from "../constants/yeelight";
 
 const INITIAL_STATE = {
-  bulbs: [
-    {
-      id: "1234",
-      power: "on",
-      name: "BLABLABLA"
-    }
-  ]
+  bulbs: []
 };
 
 const yeelightReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SET_POWER:
+    case GET:
       const { bulbs } = state;
-      const { id, power } = action.payload;
+      const { id, on, bri, name } = action.payload;
       return {
         ...state,
         bulbs: bulbs.map(bulb =>
           bulb.id === id
             ? {
                 ...bulb,
-                power
+                on,
+                bri,
+                name
               }
             : bulb
         )
+      };
+    case GET_ALL:
+      return {
+        ...state,
+        bulbs: action.payload
       };
     default:
       return state;

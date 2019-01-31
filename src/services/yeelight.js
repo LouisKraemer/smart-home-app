@@ -1,9 +1,11 @@
 import { send } from "./websocket";
 import { compose } from "ramda";
 
-import { SET_POWER } from "../constants/yeelight";
+import { SET, GET_ALL } from "../constants/yeelight";
 
-const setPower = (id, power) => formatAndSend(SET_POWER, { id, power });
+const getAll = () => formatAndSend(GET_ALL, null);
+
+const setPower = (id, on) => formatAndSend(SET, { id, on });
 
 const formatAndSend = compose(
   send,
@@ -14,4 +16,4 @@ const formatAndSend = compose(
     })
 );
 
-export { setPower };
+export { setPower, getAll };
