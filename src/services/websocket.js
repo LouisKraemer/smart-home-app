@@ -2,12 +2,17 @@ import { eventChannel } from "redux-saga";
 import { take, call, put } from "redux-saga/effects";
 import { isNil } from "ramda";
 import { getAll } from "./yeelight";
+import {
+  WEBSOCKET_CONNECTED,
+  WEBSOCKET_DISCONNECTED
+} from "../constants/websocket";
 
-const ws = new WebSocket("ws://192.168.0.15:1880");
+const ws = new WebSocket("ws://localhost:1880");
 
 const createSocketChannel = socket => {
   return eventChannel(emit => {
     socket.onopen = () => {
+      emit({ endpoint: WEBSOCKET_CONNECTED });
       getAll();
     };
 
@@ -30,6 +35,7 @@ const createSocketChannel = socket => {
 
     socket.onclose = e => {
       // connection closed
+      emit({ endpoint: WEBSOCKET_DISCONNECTED });
       console.log(e.code, e.reason);
     };
     return () => {
