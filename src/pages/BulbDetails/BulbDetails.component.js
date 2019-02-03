@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { StatusBar } from "react-native";
 import { connect } from "react-redux";
 import { Container } from "../../components";
 import { resetSelectedBulbAction } from "../../actions/yeelight";

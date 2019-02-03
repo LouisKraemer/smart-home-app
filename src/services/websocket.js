@@ -7,7 +7,7 @@ import {
   WEBSOCKET_DISCONNECTED
 } from "../constants/websocket";
 
-const ws = new WebSocket("ws://localhost:1880");
+const ws = new WebSocket("ws://192.168.0.10:1880");
 
 const createSocketChannel = socket => {
   return eventChannel(emit => {

@@ -3,7 +3,8 @@ const colors = {
   darkBackground: "#263238",
   lightBackground: "#37474F",
   contrast: "#ffffff",
-  darkIndigo: "#283593"
+  darkIndigo: "#283593",
+  overlay: "rgba(0, 0, 0, 0.2)"
 };
 
 const padding = {
