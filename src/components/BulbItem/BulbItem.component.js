@@ -12,8 +12,7 @@ export class BulbItemComponent extends Component {
   render() {
     return (
       <Container>
-        {/* <LabelContainer onPress={this.props.navigate}> */}
-        <LabelContainer>
+        <LabelContainer onPress={this.props.navigate}>
           <Label>{this.props.bulb.name}</Label>
         </LabelContainer>
         <LogoContainer

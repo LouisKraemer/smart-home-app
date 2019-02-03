@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { BulbItem } from "../../components";
 import { connect } from "react-redux";
-import { Container } from "../../components";
+import { BulbItem, Container } from "../../components";
+import { get } from "../../services/yeelight";
 
 class BulbsListComponent extends Component {
   render() {
@@ -12,9 +12,10 @@ class BulbsListComponent extends Component {
           <BulbItem
             key={bulb.id}
             bulb={bulb}
-            navigate={() =>
-              this.props.navigation.navigate("BulbDetails", { id: bulb.id })
-            }
+            navigate={() => {
+              get(bulb.id);
+              this.props.navigation.navigate("BulbDetails", { id: bulb.id });
+            }}
           />
         ))}
       </Container>

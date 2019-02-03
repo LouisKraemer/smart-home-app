@@ -1,8 +1,6 @@
-import { SET_POWER } from "../constants/yeelight";
+import { RESET_SELECTED_BULB } from "../constants/yeelight";
 
-const setPower = (id, power) => ({
-  type: SET_POWER,
-  payload: { id, power }
-});
-
-export const yeelightActions = { setPower };
+export const resetSelectedBulbAction = {
+  type: RESET_SELECTED_BULB,
+  payload: null
+};
