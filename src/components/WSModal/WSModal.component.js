@@ -7,7 +7,12 @@ import LottieView from "lottie-react-native";
 export class WSModalComponent extends Component {
   render() {
     return (
-      <Modal transparent visible={!this.props.connected} animationType="fade">
+      <Modal
+        transparent
+        visible={!this.props.connected}
+        animationType="fade"
+        onRequestClose={() => {}}
+      >
         <Container>
           <Popup>
             <InfoText>Connection lost</InfoText>
@@ -15,7 +20,6 @@ export class WSModalComponent extends Component {
               <LottieView
                 source={require("../../assets/lottie/loader.json")}
                 autoPlay
-                loop
               />
             </AnimationContainer>
           </Popup>

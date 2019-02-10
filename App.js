@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
 import createSagaMiddleware from "redux-saga";
-
 import { AppContainer } from "./navigator";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./src/assets/theme";
-
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 

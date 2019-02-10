@@ -1,5 +1,6 @@
 import { eventChannel } from "redux-saga";
 import { take, call, put } from "redux-saga/effects";
+import ReconnectingWebSocket from "reconnecting-websocket";
 import { isNil } from "ramda";
 import { getAll } from "./yeelight";
 import {
@@ -7,7 +8,17 @@ import {
   WEBSOCKET_DISCONNECTED
 } from "../constants/websocket";
 
-const ws = new WebSocket("ws://192.168.0.10:1880");
+const RECONNECTION_INTERVAL = 2500;
+const WS_SERVER_ADDRESS = "ws://192.168.0.10:1880";
+
+const websocketOptions = {
+  maxReconnectionDelay: 100000,
+  minReconnectionDelay: 2500,
+  connectionTimeout: 2000
+};
+
+// let socket = new WebSocket(WS_SERVER_ADDRESS);
+const rws = new ReconnectingWebSocket(WS_SERVER_ADDRESS, [], websocketOptions);
 
 const createSocketChannel = socket => {
   return eventChannel(emit => {
@@ -45,13 +56,13 @@ const createSocketChannel = socket => {
 };
 
 function* handleWs() {
-  const channel = yield call(createSocketChannel, ws);
+  const channel = yield call(createSocketChannel, rws);
   while (true) {
     const { endpoint, payload } = yield take(channel);
     yield put({ type: endpoint, payload });
   }
 }
 
-const send = data => ws.send(data);
+const send = data => rws.send(data);
 
 export { handleWs, send };
