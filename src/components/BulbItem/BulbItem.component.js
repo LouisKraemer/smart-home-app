@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { Switch } from 'react-native';
+import styled from 'styled-components';
 
-import { setPower } from "../../services/yeelight";
-
-const bulbLogos = {
-  on: require(`../../assets/bulb_on.png`),
-  off: require(`../../assets/bulb_off.png`)
-};
+import { setPower } from '../../services/yeelight';
 
 export class BulbItemComponent extends Component {
+  showDetails = () => {
+    const { onPress, bulb } = this.props;
+    onPress(bulb);
+  };
+
+  hideDetails = () => {};
+
   render() {
+    const {
+      isDetail,
+      onPress,
+      bulb: { name, id, on },
+    } = this.props;
     return (
       <Container>
-        <LabelContainer onPress={this.props.navigate}>
-          <Label>{this.props.bulb.name}</Label>
+        <LabelContainer onPress={isDetail ? () => {} : onPress} activeOpacity={1}>
+          <Label>{name}</Label>
         </LabelContainer>
-        <LogoContainer
-          onPress={() => setPower(this.props.bulb.id, !this.props.bulb.on)}
-        >
-          <Logo
-            resizeMode="contain"
-            source={bulbLogos[this.props.bulb.on ? "on" : "off"]}
-          />
-        </LogoContainer>
+        <Switch onPress={() => setPower(id, !on)} value={on} />
       </Container>
     );
   }
@@ -34,11 +35,15 @@ const Container = styled.View`
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  justify-content: space-between;
+  padding: ${({ theme }) => theme.padding.m};
+  background-color: ${({ theme }) => theme.colors.lightBackground};
+  margin: ${({ theme }) => theme.padding.m};
+  border-radius: 5;
 `;
 
 const LabelContainer = styled.TouchableOpacity`
   display: flex;
+  flex: 1;
   justify-content: center;
   padding-left: ${({ theme }) => theme.padding.m};
 `;
@@ -46,16 +51,4 @@ const LabelContainer = styled.TouchableOpacity`
 const Label = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.l};
   color: ${({ theme }) => theme.colors.contrast};
-`;
-
-const LogoContainer = styled.TouchableOpacity`
-  width: 80px;
-  height: 80px;
-  padding: ${({ theme }) => theme.padding.m};
-`;
-
-const Logo = styled.Image`
-  flex: 1;
-  height: undefined;
-  width: undefined;
 `;

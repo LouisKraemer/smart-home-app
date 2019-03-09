@@ -1,1 +1,1 @@
-export { BulbsList } from "./BulbsList.component";
+export { BulbsList } from './BulbsList.component';

@@ -1,1 +1,1 @@
-export { WSModal } from "./WSModal.component";
+export { WSModal } from './WSModal.component';

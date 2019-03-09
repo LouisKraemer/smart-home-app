@@ -1,34 +1,30 @@
-import React, { Component } from "react";
-import { StatusBar } from "react-native";
-import styled from "styled-components";
-import { Container } from "../../components";
-import { send } from "../../services/websocket";
+import React from 'react';
+import { StatusBar } from 'react-native';
+import { Transition } from 'react-navigation-fluid-transitions';
+import styled from 'styled-components';
+import { Container } from '../../components';
 
-export class HomeScreen extends Component {
-  render() {
-    return (
-      <StyledContainer>
-        <StatusBar backgroundColor="transparent" translucent />
-        <IconContainer
-          onPress={() => this.props.navigation.navigate("BulbsList")}
-        >
-          <Icon
-            resizeMode="contain"
-            source={require("../../assets/bulb.png")}
-          />
-        </IconContainer>
-      </StyledContainer>
-    );
-  }
-}
+import bulbImage from '../../assets/bulb.png';
 
-const StyledContainer = styled(Container)`
-  flex-direction: row;
-  align-items: flex-start;
-`;
+export const HomeScreen = (props) => {
+  const { navigation } = props;
+  return (
+    <Container>
+      <StatusBar backgroundColor="transparent" translucent />
+      <Row>
+        <Transition appear="left" disappear="left">
+          <IconContainer onPress={() => navigation.navigate('BulbsList')}>
+            <Icon resizeMode="contain" source={bulbImage} />
+          </IconContainer>
+        </Transition>
+        <Spacer />
+      </Row>
+    </Container>
+  );
+};
 
 const IconContainer = styled.TouchableOpacity`
-  width: 50%;
+  width: 200px;
   height: 200px;
   padding: ${({ theme }) => theme.padding.m};
 `;
@@ -37,4 +33,14 @@ const Icon = styled.Image`
   flex: 1;
   height: auto;
   width: auto;
+`;
+
+const Row = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  height: 200px;
+`;
+
+const Spacer = styled.View`
+  width: 200px;
 `;

@@ -1,1 +1,1 @@
-export { BulbDetails } from "./BulbDetails.component";
+export { BulbDetails } from './BulbDetails.component';

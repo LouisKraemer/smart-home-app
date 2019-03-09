@@ -1,10 +1,10 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import { yeelightReducer } from "./yeelight";
+import { yeelightReducer } from './yeelight';
 
-import { websocketReducer } from "./websocket";
+import { websocketReducer } from './websocket';
 
 export const rootReducer = combineReducers({
   yeelightReducer,
-  websocketReducer
+  websocketReducer,
 });

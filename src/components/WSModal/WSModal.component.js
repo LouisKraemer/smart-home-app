@@ -1,36 +1,29 @@
-import React, { Component } from "react";
-import { Modal, Text } from "react-native";
-import { connect } from "react-redux";
-import styled from "styled-components";
-import LottieView from "lottie-react-native";
+import React from 'react';
+import { Modal } from 'react-native';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import LottieView from 'lottie-react-native';
 
-export class WSModalComponent extends Component {
-  render() {
-    return (
-      <Modal
-        transparent
-        visible={!this.props.connected}
-        animationType="fade"
-        onRequestClose={() => {}}
-      >
-        <Container>
-          <Popup>
-            <InfoText>Connection lost</InfoText>
-            <AnimationContainer>
-              <LottieView
-                source={require("../../assets/lottie/loader.json")}
-                autoPlay
-              />
-            </AnimationContainer>
-          </Popup>
-        </Container>
-      </Modal>
-    );
-  }
-}
+import loader from '../../assets/lottie/loader.json';
+
+export const WSModalComponent = (props) => {
+  const { connected } = props;
+  return (
+    <Modal transparent visible={!connected} animationType="fade" onRequestClose={() => {}}>
+      <Container>
+        <Popup>
+          <InfoText>Connection lost</InfoText>
+          <AnimationContainer>
+            <LottieView source={loader} autoPlay />
+          </AnimationContainer>
+        </Popup>
+      </Container>
+    </Modal>
+  );
+};
 
 const mapStateToProps = ({ websocketReducer: { connected } }) => ({
-  connected
+  connected,
 });
 
 export const WSModal = connect(mapStateToProps)(WSModalComponent);

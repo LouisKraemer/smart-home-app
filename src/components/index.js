@@ -1,5 +1,3 @@
-export { Container } from "./Container";
-export { BulbItem } from "./BulbItem";
-export { Header } from "./Header";
-export { WSModal } from "./WSModal";
-export { Switch } from "./Switch";
+export { Container } from './Container';
+export { BulbItem } from './BulbItem';
+export { WSModal } from './WSModal';
