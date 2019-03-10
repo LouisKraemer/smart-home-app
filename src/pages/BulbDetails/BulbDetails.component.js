@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Slider } from 'react-native';
 import { Transition } from 'react-navigation-fluid-transitions';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -19,7 +20,12 @@ class BulbDetailsComponent extends Component {
     super(props);
     const { navigation } = props;
     this.bulb = navigation.getParam('bulb');
-    // get(this.bulb.id);
+    get(this.bulb._id);
+  }
+
+  componentWillUnmount() {
+    const { resetSelectedBulbAction } = this.props;
+    resetSelectedBulbAction();
   }
 
   onChange = () => {
@@ -33,7 +39,7 @@ class BulbDetailsComponent extends Component {
         <AnimationContainer>
           <LottieView source={lightJSON} autoPlay loop={false} />
         </AnimationContainer>
-        <Transition shared={this.bulb.id}>
+        <Transition shared={this.bulb._id}>
           <BulbItem bulb={isNil(selectedBulb) ? this.bulb : selectedBulb} isDetail />
         </Transition>
         {!isNil(selectedBulb) && (
@@ -44,7 +50,7 @@ class BulbDetailsComponent extends Component {
                 maximumValue={100}
                 step={1}
                 onSlidingComplete={(value) => {
-                  setBri(selectedBulb.id, value);
+                  setBri(selectedBulb._id, value);
                 }}
                 value={selectedBulb.bri}
                 style={{ flex: 1 }}
@@ -68,7 +74,14 @@ const mapStateToProps = ({ yeelightReducer: { selectedBulb } }) => ({
   selectedBulb,
 });
 
-export const BulbDetails = connect(mapStateToProps)(BulbDetailsComponent);
+const mapDispatchToProps = dispatch => ({
+  resetSelectedBulbAction: () => dispatch(resetSelectedBulbAction()),
+});
+
+export const BulbDetails = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(BulbDetailsComponent);
 
 const AnimationContainer = styled.View`
   height: 280;

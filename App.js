@@ -16,14 +16,14 @@ const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
 
-// sagaMiddleware.run(handleWs);
+sagaMiddleware.run(handleWs);
 
 const AppComponent = () => (
   <Provider store={store}>
     <ThemeProvider theme={theme}>
       <Fragment>
         <AppContainer />
-        {/* <WSModal /> */}
+        <WSModal />
       </Fragment>
     </ThemeProvider>
   </Provider>

@@ -13,11 +13,11 @@ const formatAndSend = compose(
 
 const getAll = () => formatAndSend(GET_ALL, null);
 
-const setPower = (id, on) => formatAndSend(SET, { id, on });
+const setPower = (_id, on) => formatAndSend(SET, { _id, on });
 
-const setBri = (id, bri) => formatAndSend(SET, { id, bri });
+const setBri = (_id, bri) => formatAndSend(SET, { _id, bri });
 
-const get = id => formatAndSend(GET, { id });
+const get = _id => formatAndSend(GET, { _id });
 
 export {
   setPower, getAll, get, setBri,

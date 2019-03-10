@@ -4,27 +4,27 @@ import { GET, GET_ALL, RESET_SELECTED_BULB } from '../constants/yeelight';
 const INITIAL_STATE = {
   bulbs: [
     {
-      id: 'test',
+      _id: 'test',
       name: 'Test',
       on: true,
     },
     {
-      id: 'test2',
+      _id: 'test2',
       name: 'Test2',
       on: false,
     },
     {
-      id: 'test3',
+      _id: 'test3',
       name: 'Test3',
       on: false,
     },
     {
-      id: 'test4',
+      _id: 'test4',
       name: 'Test4',
       on: false,
     },
     {
-      id: 'test5',
+      _id: 'test5',
       name: 'Test5',
       on: false,
     },

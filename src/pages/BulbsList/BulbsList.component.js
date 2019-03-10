@@ -13,7 +13,7 @@ class BulbsListComponent extends Component {
   };
 
   renderItem = ({ item }) => (
-    <Transition shared={item.id} appear="scale" disappear="scale">
+    <Transition shared={item._id} appear="scale" disappear="scale">
       <BulbItem bulb={item} onPress={() => this.goToBulbDetails(item)} />
     </Transition>
   );
@@ -22,7 +22,7 @@ class BulbsListComponent extends Component {
     const { bulbs } = this.props;
     return (
       <Container>
-        <FlatList data={bulbs} renderItem={this.renderItem} keyExtractor={item => item.id} />
+        <FlatList data={bulbs} renderItem={this.renderItem} keyExtractor={item => item._id} />
       </Container>
     );
   }
