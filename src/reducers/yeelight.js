@@ -37,11 +37,11 @@ const yeelightReducer = (state = INITIAL_STATE, action) => {
     case GET: {
       const { bulbs, selectedBulb } = state;
       const {
-        id, on, bri, name,
+        _id, on, bri, name,
       } = action.payload;
       return {
         ...state,
-        bulbs: bulbs.map(bulb => (bulb.id === id
+        bulbs: bulbs.map(bulb => (bulb._id === _id
           ? {
             ...bulb,
             on,
@@ -49,7 +49,9 @@ const yeelightReducer = (state = INITIAL_STATE, action) => {
           }
           : bulb)),
         selectedBulb:
-          id === prop('id', selectedBulb) || selectedBulb === null ? action.payload : selectedBulb,
+          _id === prop('_id', selectedBulb) || selectedBulb === null
+            ? action.payload
+            : selectedBulb,
       };
     }
     case GET_ALL:
