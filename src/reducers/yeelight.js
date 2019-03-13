@@ -1,5 +1,7 @@
 import { prop } from 'ramda';
-import { GET, GET_ALL, RESET_SELECTED_BULB } from '../constants/yeelight';
+import {
+  GET, GET_ALL, RESET_SELECTED_BULB, REFRESH_BULBS,
+} from '../constants/yeelight';
 
 const INITIAL_STATE = {
   bulbs: [
@@ -30,6 +32,7 @@ const INITIAL_STATE = {
     },
   ],
   selectedBulb: null,
+  refreshing: false,
 };
 
 const yeelightReducer = (state = INITIAL_STATE, action) => {
@@ -41,6 +44,7 @@ const yeelightReducer = (state = INITIAL_STATE, action) => {
       } = action.payload;
       return {
         ...state,
+        refreshing: false,
         bulbs: bulbs.map(bulb => (bulb._id === _id
           ? {
             ...bulb,
@@ -58,11 +62,17 @@ const yeelightReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         bulbs: action.payload,
+        refreshing: false,
       };
     case RESET_SELECTED_BULB:
       return {
         ...state,
         selectedBulb: null,
+      };
+    case REFRESH_BULBS:
+      return {
+        ...state,
+        refreshing: true,
       };
     default:
       return state;
