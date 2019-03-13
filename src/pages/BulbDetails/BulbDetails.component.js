@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Slider } from 'react-native';
 import { Transition } from 'react-navigation-fluid-transitions';
 import styled from 'styled-components';
@@ -7,7 +7,7 @@ import LottieView from 'lottie-react-native';
 import { isNil } from 'ramda';
 import { ColorWheel } from 'react-native-color-wheel';
 
-import { Container, BulbItem } from '../../components';
+import { withContainer, BulbItem } from '../../components';
 import { resetSelectedBulbAction } from '../../actions/yeelight';
 import { setBri, get } from '../../services/yeelight';
 
@@ -35,7 +35,7 @@ class BulbDetailsComponent extends Component {
   render() {
     const { selectedBulb } = this.props;
     return (
-      <Container>
+      <Fragment>
         <AnimationContainer>
           <LottieView source={lightJSON} autoPlay loop={false} />
         </AnimationContainer>
@@ -65,7 +65,7 @@ class BulbDetailsComponent extends Component {
             </Section>
           </DetailsContainer>
         )}
-      </Container>
+      </Fragment>
     );
   }
 }
@@ -81,7 +81,7 @@ const mapDispatchToProps = dispatch => ({
 export const BulbDetails = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(BulbDetailsComponent);
+)(withContainer(BulbDetailsComponent));
 
 const AnimationContainer = styled.View`
   height: 280;

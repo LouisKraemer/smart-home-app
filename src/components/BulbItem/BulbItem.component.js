@@ -16,7 +16,9 @@ export const BulbItem = (props) => {
       <LabelContainer onPress={isDetail ? () => {} : onPress} activeOpacity={1}>
         <Label>{name}</Label>
       </LabelContainer>
-      <Switch onValueChange={() => setPower(_id, !on)} value={on} />
+      <SwitchContainer>
+        <Switch onValueChange={() => setPower(_id, !on)} value={on} />
+      </SwitchContainer>
     </Container>
   );
 };
@@ -41,4 +43,10 @@ const LabelContainer = styled.TouchableOpacity`
 const Label = styled.Text`
   font-size: ${({ theme }) => theme.fontSize.l};
   color: ${({ theme }) => theme.colors.contrast};
+`;
+
+const SwitchContainer = styled.View`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

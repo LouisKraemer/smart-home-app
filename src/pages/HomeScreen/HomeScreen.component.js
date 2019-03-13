@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { StatusBar } from 'react-native';
 import { Transition } from 'react-navigation-fluid-transitions';
 import styled from 'styled-components';
-import { Container } from '../../components';
+import { withContainer } from '../../components';
 
 import bulbImage from '../../assets/bulb.png';
 
-export const HomeScreen = (props) => {
+const HomeScreen = (props) => {
   const { navigation } = props;
   return (
-    <Container>
+    <Fragment>
       <StatusBar backgroundColor="transparent" translucent />
       <Row>
         <Transition appear="left" disappear="left">
@@ -19,9 +19,11 @@ export const HomeScreen = (props) => {
         </Transition>
         <Spacer />
       </Row>
-    </Container>
+    </Fragment>
   );
 };
+
+export const Home = withContainer(HomeScreen);
 
 const IconContainer = styled.TouchableOpacity`
   width: 200px;

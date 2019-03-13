@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FlatList } from 'react-native';
 import { Transition } from 'react-navigation-fluid-transitions';
 import { connect } from 'react-redux';
-import { BulbItem, Container } from '../../components';
+import { BulbItem, withContainer } from '../../components';
 
 class BulbsListComponent extends Component {
   goToBulbDetails = (bulb) => {
@@ -32,4 +32,7 @@ const mapStateToProps = ({ yeelightReducer: { bulbs } }) => ({
   bulbs,
 });
 
-export const BulbsList = connect(mapStateToProps)(BulbsListComponent);
+export const BulbsList = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withContainer(BulbsListComponent));
