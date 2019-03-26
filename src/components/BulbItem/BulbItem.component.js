@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Switch } from 'react-native';
 import styled from 'styled-components';
 
@@ -9,7 +9,7 @@ export const BulbItem = (props) => {
   const {
     isDetail,
     onPress,
-    bulb: { name, _id, on },
+    bulb: { name, deviceId, power },
   } = props;
   return (
     <Container>
@@ -17,7 +17,7 @@ export const BulbItem = (props) => {
         <Label>{name}</Label>
       </LabelContainer>
       <SwitchContainer>
-        <Switch onValueChange={() => setPower(_id, !on)} value={on} />
+        <Switch onValueChange={() => setPower(deviceId, !power)} value={power} />
       </SwitchContainer>
     </Container>
   );

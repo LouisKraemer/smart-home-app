@@ -1,7 +1,13 @@
 import { compose } from 'ramda';
 import { send } from './websocket';
 
-import { SET, GET_ALL, GET } from '../constants/yeelight';
+import {
+  SET_BRIGHT_ENDPOINT,
+  SET_NAME_ENDPOINT,
+  SET_POWER_ENDPOINT,
+  GET_ALL,
+  GET,
+} from '../constants/yeelight';
 
 const formatAndSend = compose(
   send,
@@ -13,12 +19,12 @@ const formatAndSend = compose(
 
 const getAll = () => formatAndSend(GET_ALL, null);
 
-const setPower = (_id, on) => formatAndSend(SET, { _id, on });
+const setPower = (deviceId, power) => formatAndSend(SET_POWER_ENDPOINT, { deviceId, power });
 
-const setBri = (_id, bri) => formatAndSend(SET, { _id, bri });
+const setBright = (deviceId, bright) => formatAndSend(SET_BRIGHT_ENDPOINT, { deviceId, bright });
 
-const get = _id => formatAndSend(GET, { _id });
+const get = deviceId => formatAndSend(GET, { deviceId });
 
 export {
-  setPower, getAll, get, setBri,
+  setPower, getAll, get, setBright,
 };

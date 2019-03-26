@@ -12,7 +12,7 @@ export const WSModalComponent = (props) => {
     <Modal transparent visible={!connected} animationType="fade" onRequestClose={() => {}}>
       <Container>
         <Popup>
-          <InfoText>Connection lost</InfoText>
+          <InfoText>Connecting</InfoText>
           <AnimationContainer>
             <LottieView source={loader} autoPlay />
           </AnimationContainer>

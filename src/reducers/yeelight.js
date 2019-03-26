@@ -1,36 +1,14 @@
 import { prop } from 'ramda';
 import {
-  GET, GET_ALL, RESET_SELECTED_BULB, REFRESH_BULBS,
+  GET,
+  GET_ALL,
+  RESET_SELECTED_BULB,
+  REFRESH_BULBS,
+  SELECT_BULB,
 } from '../constants/yeelight';
 
 const INITIAL_STATE = {
-  bulbs: [
-    {
-      _id: 'test',
-      name: 'Test',
-      on: true,
-    },
-    {
-      _id: 'test2',
-      name: 'Test2',
-      on: false,
-    },
-    {
-      _id: 'test3',
-      name: 'Test3',
-      on: false,
-    },
-    {
-      _id: 'test4',
-      name: 'Test4',
-      on: false,
-    },
-    {
-      _id: 'test5',
-      name: 'Test5',
-      on: false,
-    },
-  ],
+  bulbs: [],
   selectedBulb: null,
   refreshing: false,
 };
@@ -39,23 +17,18 @@ const yeelightReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case GET: {
       const { bulbs, selectedBulb } = state;
-      const {
-        _id, on, bri, name,
-      } = action.payload;
+      const { deviceId, ...rest } = action.payload;
       return {
         ...state,
         refreshing: false,
-        bulbs: bulbs.map(bulb => (bulb._id === _id
+        bulbs: bulbs.map(bulb => (bulb.deviceId === deviceId
           ? {
             ...bulb,
-            on,
-            name,
+            ...rest,
           }
           : bulb)),
         selectedBulb:
-          _id === prop('_id', selectedBulb) || selectedBulb === null
-            ? action.payload
-            : selectedBulb,
+          deviceId === prop('deviceId', selectedBulb) ? { ...selectedBulb, ...rest } : selectedBulb,
       };
     }
     case GET_ALL:
@@ -73,6 +46,11 @@ const yeelightReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         refreshing: true,
+      };
+    case SELECT_BULB:
+      return {
+        ...state,
+        selectedBulb: action.payload,
       };
     default:
       return state;

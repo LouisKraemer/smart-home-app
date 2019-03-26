@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Slider } from 'react-native';
+import Slider from '@react-native-community/slider';
 import { Transition } from 'react-navigation-fluid-transitions';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -9,18 +9,16 @@ import { ColorWheel } from 'react-native-color-wheel';
 
 import { withContainer, BulbItem } from '../../components';
 import { resetSelectedBulbAction } from '../../actions/yeelight';
-import { setBri, get } from '../../services/yeelight';
+import { setBright, get } from '../../services/yeelight';
 
 const lightJSON = require('../../assets/lottie/light_bulb.json');
 
 class BulbDetailsComponent extends Component {
-  bulb;
-
   constructor(props) {
     super(props);
     const { navigation } = props;
     this.bulb = navigation.getParam('bulb');
-    get(this.bulb._id);
+    get(this.bulb.deviceId);
   }
 
   componentWillUnmount() {
@@ -32,6 +30,8 @@ class BulbDetailsComponent extends Component {
     // Here change color
   };
 
+  bulb;
+
   render() {
     const { selectedBulb } = this.props;
     return (
@@ -39,30 +39,30 @@ class BulbDetailsComponent extends Component {
         <AnimationContainer>
           <LottieView source={lightJSON} autoPlay loop={false} />
         </AnimationContainer>
-        <Transition shared={this.bulb._id}>
+        <Transition shared={this.bulb.deviceId}>
           <BulbItem bulb={isNil(selectedBulb) ? this.bulb : selectedBulb} isDetail />
         </Transition>
         {!isNil(selectedBulb) && (
           <DetailsContainer>
             <Section>
               <Slider
-                minimumValue={0}
+                minimumValue={1}
                 maximumValue={100}
                 step={1}
                 onSlidingComplete={(value) => {
-                  setBri(selectedBulb._id, value);
+                  setBright(selectedBulb.deviceId, value);
                 }}
-                value={selectedBulb.bri}
+                value={selectedBulb.bright}
                 style={{ flex: 1 }}
               />
             </Section>
-            <Section>
+            {/* <Section>
               <ColorWheel
                 initialColor="#ee0000"
                 onColorChangeComplete={color => this.onChange(color)}
                 style={{ width: 100, height: 200 }}
               />
-            </Section>
+            </Section> */}
           </DetailsContainer>
         )}
       </Fragment>
