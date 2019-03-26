@@ -10,7 +10,11 @@
     "lint": "eslint *.js **/*.js"
   },
   "dependencies": {
-    "lottie-react-native": "^2.5.11",
+    "@react-native-community/slider": "^1.0.3",
+    "axios": "^0.18.0",
+    "lottie-react-native": "2.6.0",
+    "patch-package": "^6.0.7",
+    "postinstall-postinstall": "^2.0.0",
     "ramda": "^0.26.1",
     "react": "16.6.1",
     "react-native": "0.59",
@@ -22,6 +26,7 @@
     "reconnecting-websocket": "^4.1.10",
     "redux": "^4.0.1",
     "redux-saga": "^0.16.2",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^4.1.2",
     "ws": "^6.1.2"
   },
