@@ -1,8 +1,9 @@
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createFluidNavigator } from 'react-navigation-fluid-transitions';
 import { Home } from './src/pages/HomeScreen';
 import { BulbsList } from './src/pages/BulbsList';
 import { BulbDetails } from './src/pages/BulbDetails';
+import { Login } from './src/pages/Login';
 import { theme } from './src/assets/theme';
 
 const AppNavigator = createFluidNavigator(
@@ -18,4 +19,14 @@ const AppNavigator = createFluidNavigator(
   },
 );
 
-export const AppContainer = createAppContainer(AppNavigator);
+const RootNavigator = createSwitchNavigator(
+  {
+    App: AppNavigator,
+    Authentication: Login,
+  },
+  {
+    initialRouteName: 'Authentication',
+  },
+);
+
+export const AppContainer = createAppContainer(RootNavigator);

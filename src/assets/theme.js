@@ -3,6 +3,7 @@ const colors = {
   darkBackground: '#263238',
   lightBackground: '#37474F',
   contrast: '#ffffff',
+  lightContrast: '#BDBDBD',
   darkIndigo: '#283593',
   overlay: 'rgba(0, 0, 0, 0.2)',
 };
