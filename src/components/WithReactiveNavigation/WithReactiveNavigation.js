@@ -5,6 +5,15 @@ import { withNavigation } from 'react-navigation';
 import { isNil } from 'ramda';
 
 export const withReactiveNavigationHOC = WrappedComponent => class WrappedComponentClass extends PureComponent {
+  componentDidMount() {
+    const { token, navigation } = this.props;
+    if (token) {
+      navigation.navigate('Home');
+    } else {
+      navigation.navigate('Authentication');
+    }
+  }
+
   componentDidUpdate(prevProps) {
     const { token, navigation } = this.props;
     const { token: prevToken } = prevProps;

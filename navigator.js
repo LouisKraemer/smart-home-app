@@ -4,6 +4,7 @@ import { Home } from './src/pages/HomeScreen';
 import { BulbsList } from './src/pages/BulbsList';
 import { BulbDetails } from './src/pages/BulbDetails';
 import { Login } from './src/pages/Login';
+import { Loading } from './src/pages/Loading';
 import { theme } from './src/assets/theme';
 
 const AppNavigator = createFluidNavigator(
@@ -23,9 +24,10 @@ const RootNavigator = createSwitchNavigator(
   {
     App: AppNavigator,
     Authentication: Login,
+    AuthenticationPending: Loading,
   },
   {
-    initialRouteName: 'Authentication',
+    initialRouteName: 'AuthenticationPending',
   },
 );
 
