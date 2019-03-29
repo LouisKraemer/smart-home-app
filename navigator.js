@@ -1,10 +1,8 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createFluidNavigator } from 'react-navigation-fluid-transitions';
-import { Home } from './src/pages/HomeScreen';
-import { BulbsList } from './src/pages/BulbsList';
-import { BulbDetails } from './src/pages/BulbDetails';
-import { Login } from './src/pages/Login';
-import { Loading } from './src/pages/Loading';
+import {
+  Home, Loading, Login, BulbDetails, BulbsList,
+} from './src/pages';
 import { theme } from './src/assets/theme';
 
 const AppNavigator = createFluidNavigator(
