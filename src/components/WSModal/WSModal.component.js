@@ -7,9 +7,9 @@ import LottieView from 'lottie-react-native';
 import loader from '../../assets/lottie/loader.json';
 
 export const WSModalComponent = (props) => {
-  const { connected } = props;
+  const { connected, token } = props;
   return (
-    <Modal transparent visible={!connected} animationType="fade" onRequestClose={() => {}}>
+    <Modal transparent visible={token && !connected} animationType="fade" onRequestClose={() => {}}>
       <Container>
         <Popup>
           <InfoText>Connecting</InfoText>
@@ -22,8 +22,12 @@ export const WSModalComponent = (props) => {
   );
 };
 
-const mapStateToProps = ({ websocketReducer: { connected } }) => ({
+const mapStateToProps = ({
+  authenticationReducer: { token },
+  websocketReducer: { connected },
+}) => ({
   connected,
+  token,
 });
 
 export const WSModal = connect(mapStateToProps)(WSModalComponent);

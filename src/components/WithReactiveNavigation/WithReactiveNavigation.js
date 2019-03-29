@@ -6,6 +6,7 @@ import { isNil } from 'ramda';
 
 import { getToken } from '../../services/storage';
 import { loginSuccess } from '../../actions/authentication';
+import { initWebsocket } from '../../services/websocket';
 
 export const withReactiveNavigationHOC = WrappedComponent => class WrappedComponentClass extends PureComponent {
   componentDidMount() {
@@ -16,21 +17,22 @@ export const withReactiveNavigationHOC = WrappedComponent => class WrappedCompon
     const { token, navigation } = this.props;
     const { token: prevToken } = prevProps;
     if (isNil(token)) {
-      return navigation.navigate('Authentication');
+      navigation.navigate('Authentication');
+    } else if (!isNil(token) && isNil(prevToken)) {
+      initWebsocket(token);
+      navigation.navigate('Home');
     }
-    if (!isNil(token) && isNil(prevToken)) {
-      return navigation.navigate('Home');
-    }
-    return undefined;
   }
 
     initAppState = async () => {
       const { navigation, dispatchLoginSuccess } = this.props;
       const token = await getToken();
       if (token) {
-        return dispatchLoginSuccess(token);
+        initWebsocket(token);
+        dispatchLoginSuccess(token);
+      } else {
+        navigation.navigate('Authentication');
       }
-      return navigation.navigate('Authentication');
     };
 
     render() {
@@ -44,7 +46,6 @@ const mapStateToProps = ({ authenticationReducer: { token } }) => ({
 
 const mapDispatchToProps = dispatch => ({
   dispatchLoginSuccess: token => dispatch(loginSuccess(token)),
-  // selectBulb: bulb => dispatch(selectBulbAction(bulb)),
 });
 
 export const withReactiveNavigation = compose(
