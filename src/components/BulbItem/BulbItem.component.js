@@ -1,9 +1,8 @@
 import React from 'react';
-import { Switch } from 'react-native';
 import styled from 'styled-components';
+import { Switch } from '../Switch';
 
 import { setPower } from '../../services/yeelight';
-import { theme } from '../../assets/theme';
 
 export const BulbItem = (props) => {
   const {
@@ -17,7 +16,7 @@ export const BulbItem = (props) => {
         <Label>{name}</Label>
       </LabelContainer>
       <SwitchContainer>
-        <Switch onValueChange={() => setPower(deviceId, !power)} value={power} />
+        <Switch value={power} onPress={() => setPower(deviceId, !power)} />
       </SwitchContainer>
     </Container>
   );
