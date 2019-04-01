@@ -5,6 +5,10 @@ import {
 } from './src/pages';
 import { theme } from './src/assets/theme';
 
+const transitionConfig = {
+  duration: 500,
+};
+
 const AppNavigator = createFluidNavigator(
   {
     Home,
@@ -15,6 +19,7 @@ const AppNavigator = createFluidNavigator(
     initialRouteName: 'Home',
     headerMode: 'none',
     cardStyle: { opacity: 1, backgroundColor: theme.colors.darkBackground },
+    transitionConfig,
   },
 );
 
