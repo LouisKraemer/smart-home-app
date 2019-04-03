@@ -1,18 +1,30 @@
 import React, { Component, Fragment } from 'react';
 import { ActivityIndicator, StatusBar } from 'react-native';
 import { compose } from 'redux';
+import { isNil } from 'ramda';
 import { Transition } from 'react-navigation-fluid-transitions';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+
 import { theme as globalTheme } from '../../assets/theme';
-import { withContainer, withReactiveNavigation } from '../../components';
+import { withContainer } from '../../components';
 import { login } from '../../services/authentication';
+import { initWebsocket } from '../../services/websocket';
 
 class LoginComponent extends Component {
   state = {
     pseudo: '',
     password: '',
   };
+
+  componentDidUpdate(prevProps) {
+    const { token, navigation } = this.props;
+    const { token: prevToken } = prevProps;
+    if (!isNil(token) && isNil(prevToken)) {
+      initWebsocket(token);
+      navigation.navigate('Home');
+    }
+  }
 
   setPseudo = pseudo => this.setState({ pseudo });
 
@@ -59,23 +71,22 @@ class LoginComponent extends Component {
   }
 }
 
-const mapStateToProps = ({ authenticationReducer: { pending } }) => ({
+const mapStateToProps = ({ authenticationReducer: { pending, token } }) => ({
   pending,
+  token,
 });
 
 const mapDispatchToProps = dispatch => ({
   dispatchLogin: payload => dispatch(login(payload)),
 });
 
-export const Login = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(
-  compose(
-    withContainer,
-    withReactiveNavigation,
-  )(LoginComponent),
-);
+export const Login = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  withContainer,
+)(LoginComponent);
 
 const InputContainer = styled.View`
   flex: 1;
