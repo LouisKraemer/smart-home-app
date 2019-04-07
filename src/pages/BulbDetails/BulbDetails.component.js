@@ -1,15 +1,16 @@
 import React, { Component, Fragment } from 'react';
+import { compose } from 'redux';
 import Slider from '@react-native-community/slider';
 import { Transition } from 'react-navigation-fluid-transitions';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import LottieView from 'lottie-react-native';
 import { isNil } from 'ramda';
-import { ColorWheel } from 'react-native-color-wheel';
 
-import { withContainer, BulbItem } from '../../components';
+import { withContainer, BulbItem, ColorPicker } from '../../components';
 import { resetSelectedBulbAction } from '../../actions/yeelight';
-import { setBright, get } from '../../services/yeelight';
+import { setBright, get, setColorTemperature } from '../../services/yeelight';
+import { colorTemperatureToRGB } from '../../services/color';
 
 const lightJSON = require('../../assets/lottie/light_bulb.json');
 
@@ -26,8 +27,13 @@ class BulbDetailsComponent extends Component {
     resetSelectedBulbAction();
   }
 
-  onChange = () => {
-    // Here change color
+  onColorChange = (deviceId, colorMode, value) => {
+    if (colorMode === 1) {
+      // Change RGB
+    }
+    if (colorMode === 2) {
+      setColorTemperature(deviceId, value);
+    }
   };
 
   bulb;
@@ -56,13 +62,23 @@ class BulbDetailsComponent extends Component {
                 style={{ flex: 1 }}
               />
             </Section>
-            {/* <Section>
-              <ColorWheel
-                initialColor="#ee0000"
-                onColorChangeComplete={color => this.onChange(color)}
-                style={{ width: 100, height: 200 }}
-              />
-            </Section> */}
+            <Section>
+              {Object.keys(colorTemperatureToRGB).map((kelvin) => {
+                const intKelvin = parseInt(kelvin, 10);
+                const isSelected = selectedBulb.color_mode === 2 && intKelvin === selectedBulb.ct;
+                return (
+                  <ColorPicker
+                    key={intKelvin}
+                    kelvin={intKelvin}
+                    isSelected={isSelected}
+                    onPress={(ct) => {
+                      this.onColorChange(selectedBulb.deviceId, 2, ct);
+                    }}
+                  />
+                );
+              })}
+            </Section>
+            <Section />
           </DetailsContainer>
         )}
       </Fragment>
@@ -78,21 +94,27 @@ const mapDispatchToProps = dispatch => ({
   resetSelectedBulbAction: () => dispatch(resetSelectedBulbAction()),
 });
 
-export const BulbDetails = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withContainer(BulbDetailsComponent));
+export const BulbDetails = compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
+  withContainer,
+)(BulbDetailsComponent);
 
 const AnimationContainer = styled.View`
-  height: 280;
+  flex: 4;
 `;
 
 const Section = styled.View`
-  margin-top: ${({ theme }) => theme.padding.m};
+  margin: ${({ theme }) => `${theme.padding.s} 0`};
   padding: ${({ theme }) => theme.padding.m};
   flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex: 1;
 `;
 
 const DetailsContainer = styled.View`
-  flex: 1;
+  flex: 5;
 `;

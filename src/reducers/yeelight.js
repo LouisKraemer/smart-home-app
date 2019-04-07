@@ -1,11 +1,6 @@
 import { prop } from 'ramda';
-import {
-  GET,
-  GET_ALL,
-  RESET_SELECTED_BULB,
-  REFRESH_BULBS,
-  SELECT_BULB,
-} from '../constants/yeelight';
+import { GET, GET_ALL } from 'smart-home-config/yeelight';
+import { RESET_SELECTED_BULB, REFRESH_BULBS, SELECT_BULB } from '../constants/yeelight';
 
 const INITIAL_STATE = {
   bulbs: [],

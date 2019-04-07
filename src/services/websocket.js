@@ -25,11 +25,11 @@ export const initWebsocket = (token) => {
 
   rws.onmessage = (e) => {
     try {
-      const { endpoint, payload } = JSON.parse(e.data);
-      if (isNil(endpoint) || isNil(payload)) {
+      const { type, payload } = JSON.parse(e.data);
+      if (isNil(type) || isNil(payload)) {
         throw new Error('WRONG_MESSAGE_FORMAT');
       }
-      store.dispatch({ type: endpoint, payload });
+      store.dispatch({ type, payload });
     } catch (err) {
       console.warn(err);
     }
