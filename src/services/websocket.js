@@ -3,7 +3,7 @@ import { isNil } from 'ramda';
 import { getAll } from './yeelight';
 import { WEBSOCKET_CONNECTED, WEBSOCKET_DISCONNECTED } from '../constants/websocket';
 
-import { WEBSOCKET_URL } from '../../env.config';
+import { WEBSOCKET_URL } from '../environment';
 
 import { store } from '../../App';
 

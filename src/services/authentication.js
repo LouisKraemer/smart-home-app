@@ -3,7 +3,7 @@ import { loginPending, loginSuccess, loginFail } from '../actions/authentication
 
 import { setToken } from './storage';
 
-import { API_URL } from '../../env.config';
+import { API_URL } from '../environment';
 
 const instance = axios.create({
   baseURL: API_URL,
