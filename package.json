@@ -20,6 +20,7 @@
     "ramda": "^0.26.1",
     "react": "16.6.1",
     "react-native": "0.59",
+    "react-native-code-push": "^5.6.0",
     "react-native-gesture-handler": "^1.0.10",
     "react-navigation": "3.3.2",
     "react-navigation-fluid-transitions": "^0.3.1",

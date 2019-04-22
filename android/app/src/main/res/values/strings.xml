@@ -1,2 +1,4 @@
+<?xml version="1.0"?>
 <resources>
+	<string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey"/>
 </resources>
