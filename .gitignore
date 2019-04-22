@@ -39,7 +39,7 @@ yarn-error.log
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
+
 
 # fastlane
 #
@@ -56,3 +56,11 @@ buck-out/
 *.jsbundle
 
 env.config.js
+
+# Fastlane
+dist
+fastlane/report.xml
+fastlane/.env.*.secret
+*.back
+.bundle
+vendor/bundle

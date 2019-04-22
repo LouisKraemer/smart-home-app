@@ -93,16 +93,21 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
+def _applicationId = System.getenv("GRADLE_APP_IDENTIFIER") ?: 'com.smarthomeapp.debug'
+def appName = System.getenv("GRADLE_APP_NAME") ?: 'smartHomeApp debug'
+def _versionCode = (System.getenv("ANDROID_VERSION_CODE") ?: "1") as Integer
+def _versionName = System.getenv("ANDROID_VERSION_NAME") ?: "1.0.0"
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.smarthomeapp"
+        applicationId _applicationId
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode _versionCode
+        versionName _versionName
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -125,10 +130,23 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
-    buildTypes {
+    signingConfigs {
         release {
+            storeFile file(String.valueOf(System.getenv("GRADLE_KEYSTORE")))
+            storePassword System.getenv("GRADLE_KEYSTORE_PASSWORD")
+            keyAlias System.getenv("GRADLE_KEYSTORE_ALIAS")
+            keyPassword System.getenv("GRADLE_KEYSTORE_ALIAS_PASSWORD")
+        }
+    }
+    buildTypes {
+        debug {
+            resValue "string", "app_name", appName
+        }
+        release {
+            resValue "string", "app_name", appName
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
             signingConfig signingConfigs.release
         }
     }
